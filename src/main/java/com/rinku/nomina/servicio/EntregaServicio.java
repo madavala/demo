@@ -15,4 +15,6 @@ public interface EntregaServicio{
 
 	public List<Entrega> listarEntregasPorMes(int mes);
 	
+	public void borrarEntregaPorId(Long id);
+	
 }

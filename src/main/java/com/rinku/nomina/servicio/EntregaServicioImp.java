@@ -60,4 +60,10 @@ public class EntregaServicioImp implements  EntregaServicio {
 		return entrega;
 	}
 
+	@Override
+	public void borrarEntregaPorId(Long id) {
+		// TODO Auto-generated method stub
+		repositorio.deleteById(id);
+	}
+
 }

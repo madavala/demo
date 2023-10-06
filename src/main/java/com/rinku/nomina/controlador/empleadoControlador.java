@@ -122,18 +122,35 @@ public class empleadoControlador {
 		return "entrega";
 	}
 	
-	@GetMapping("/nomina/{mes}")
-	public String mostrarNomina(@PathVariable("mes") Integer mes, Model modelo) {		
+	@GetMapping("/borrarentrega/{id}")
+	public String borrarentrega(@PathVariable Long id, Model modelo) {
 		
+		 entregaServicio.borrarEntregaPorId(id);
+		
+		
+		return "entrega";
+	}
+	
+	@PostMapping("/nomina")
+	public String mostrarNomina(BuscarEntregas mes, Model modelo) {		
+	
+		modelo.addAttribute("mesnomina",mes);
+		modelo.addAttribute("nomina",nominaServicio.calculoNomina(mes.getMes()));
+		
+		return "nomina";
+	}
+	
+	@GetMapping("/nomina")
+	public String mostrarNomina_(Model modelo) {		
+		int mes =currentdate.getMonthValue();
 		BuscarEntregas mesnomina= new BuscarEntregas();
-		mesnomina.setMes(mes);
-		modelo.addAttribute("mesnomina",mesnomina);
+		mesnomina.setMes(currentdate.getMonthValue());
 		
+		modelo.addAttribute("mesnomina",mesnomina);
 		modelo.addAttribute("nomina",nominaServicio.calculoNomina(mes));
 		
 		return "nomina";
 	}
-
 	
 	@GetMapping("/reporteentregas")
 	
