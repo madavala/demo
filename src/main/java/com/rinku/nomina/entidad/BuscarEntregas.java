@@ -3,6 +3,7 @@ package com.rinku.nomina.entidad;
 public class BuscarEntregas {
 	
  private int mes;
+ private int anio;
  private String nombreEmpleado;
  
 public int getMes() {
@@ -16,6 +17,12 @@ public String getNombreEmpleado() {
 }
 public void setNombreEmpleado(String nombreEmpleado) {
 	this.nombreEmpleado = nombreEmpleado;
+}
+public int getAnio() {
+	return anio;
+}
+public void setAnio(int anio) {
+	this.anio = anio;
 }
  
  

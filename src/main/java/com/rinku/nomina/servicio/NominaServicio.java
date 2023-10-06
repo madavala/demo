@@ -6,6 +6,6 @@ import com.rinku.nomina.entidad.Nomina;
 
 public interface NominaServicio {
 
-	List<Nomina> calculoNomina  (int mes);
+	List<Nomina> calculoNomina  (int mes,int anio);
 
 }

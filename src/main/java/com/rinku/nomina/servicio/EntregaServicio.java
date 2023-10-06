@@ -11,9 +11,9 @@ public interface EntregaServicio{
 	
 	public Entrega guardarEntrega(Entrega entrega);
 	
-	public Entrega EntregaPorIdEmpleadoPorMes(Long idEmpleado, Integer mes);
+	public Entrega EntregaPorIdEmpleadoPorMes(Long idEmpleado, int mes,int anio);
 
-	public List<Entrega> listarEntregasPorMes(int mes);
+	public List<Entrega> listarEntregasPorMes(int mes,int anio);
 	
 	public void borrarEntregaPorId(Long id);
 	

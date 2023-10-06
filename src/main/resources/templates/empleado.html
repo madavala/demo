@@ -27,11 +27,11 @@
 		<div class="mb-3 mt-3">
 			<label for="nomEmp">Rol:</label>
 			<label class="form-check-label">Chofer</label>
-			<input class="form-check-input" type="checkbox" id="chofer" name="option1" value="chofer" th:field="*{rol}">
+			<input class="form-check-input" type="radio" id="chofer" name="option1" value="chofer" th:field="*{rol}">
 			<label class="form-check-label">Cargador</label>
-			<input class="form-check-input" type="checkbox" id="cargador" name="option2" value="cargador" th:field="*{rol}">
+			<input class="form-check-input" type="radio" id="cargador" name="option2" value="cargador" th:field="*{rol}">
 			<label class="form-check-label">Auxiliar</label>
-			<input class="form-check-input" type="checkbox" id="auxiliar" name="option3" value="auxiliar" th:field="*{rol}">
+			<input class="form-check-input" type="radio" id="auxiliar" name="option3" value="auxiliar" th:field="*{rol}">
 		</div>
 		<div class="mb-3 mt-3 text-center">
 			<button class="btn btn-primary">Guardar</button>

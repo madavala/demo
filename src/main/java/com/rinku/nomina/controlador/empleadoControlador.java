@@ -102,10 +102,10 @@ public class empleadoControlador {
 		return "redirect:/mostrarempleados";
 	}
 	
-	@GetMapping("/entrega/{id}/{mes}")
-	public String entrega(@PathVariable Long id,@PathVariable int mes, Model modelo) {
+	@GetMapping("/entrega/{id}/{mes}/{anio}")
+	public String entrega(@PathVariable Long id,@PathVariable int mes,@PathVariable int anio, Model modelo) {
 		
-		Entrega entrega = entregaServicio.EntregaPorIdEmpleadoPorMes(id,mes);
+		Entrega entrega = entregaServicio.EntregaPorIdEmpleadoPorMes(id,mes,anio);
 		
 		if(entrega==null) {
 			
@@ -132,10 +132,10 @@ public class empleadoControlador {
 	}
 	
 	@PostMapping("/nomina")
-	public String mostrarNomina(BuscarEntregas mes, Model modelo) {		
+	public String mostrarNomina(BuscarEntregas mesnomina, Model modelo) {		
 	
-		modelo.addAttribute("mesnomina",mes);
-		modelo.addAttribute("nomina",nominaServicio.calculoNomina(mes.getMes()));
+		modelo.addAttribute("mesnomina",mesnomina);
+		modelo.addAttribute("nomina",nominaServicio.calculoNomina(mesnomina.getMes(),mesnomina.getAnio()));
 		
 		return "nomina";
 	}
@@ -143,11 +143,13 @@ public class empleadoControlador {
 	@GetMapping("/nomina")
 	public String mostrarNomina_(Model modelo) {		
 		int mes =currentdate.getMonthValue();
+		int year = currentdate.getYear();
 		BuscarEntregas mesnomina= new BuscarEntregas();
-		mesnomina.setMes(currentdate.getMonthValue());
+		mesnomina.setMes(mes);
+		mesnomina.setAnio(currentdate.getYear());
 		
 		modelo.addAttribute("mesnomina",mesnomina);
-		modelo.addAttribute("nomina",nominaServicio.calculoNomina(mes));
+		modelo.addAttribute("nomina",nominaServicio.calculoNomina(mes,year));
 		
 		return "nomina";
 	}
@@ -160,9 +162,23 @@ public class empleadoControlador {
 		
 		buscarEntregas.setMes(currentdate.getMonthValue());
 		
+		buscarEntregas.setAnio(currentdate.getYear());
+		
 		modelo.addAttribute("BuscarEntregas",buscarEntregas);
 		
-		modelo.addAttribute("entregas",entregaServicio.listarEntregasPorMes(10));
+		modelo.addAttribute("entregas",entregaServicio.listarEntregasPorMes(currentdate.getMonthValue(),currentdate.getYear()));
+
+		
+		return "reporteentregas";
+	}
+	
+	@PostMapping("/buscarentrega")
+	public String reporteentregaBuscar(BuscarEntregas buscarEntregas,Model modelo) {
+		
+		
+		modelo.addAttribute("BuscarEntregas",buscarEntregas);
+		
+		modelo.addAttribute("entregas",entregaServicio.listarEntregasPorMes(buscarEntregas.getMes(),buscarEntregas.getAnio()));
 
 		
 		return "reporteentregas";

@@ -25,6 +25,9 @@ import jakarta.persistence.Table;
 		
 		@Column(name = "mes", nullable = false)
 		private Integer mes;
+		
+		@Column(name = "anio", nullable = false)
+		private Integer anio;
 
 		@Column(name = "cantidad", nullable = false)
 		private Integer cantidad;
@@ -59,6 +62,14 @@ import jakarta.persistence.Table;
 
 		public void setCantidad(Integer cantidad) {
 			this.cantidad = cantidad;
+		}
+
+		public Integer getAnio() {
+			return anio;
+		}
+
+		public void setAnio(Integer anio) {
+			this.anio = anio;
 		}
 
 		

@@ -24,8 +24,9 @@ public class EntregaServicioImp implements  EntregaServicio {
 		// TODO Auto-generated method stub
 		Long idEmpleado = entrega.getEmpleado().getId();
 		Integer mes = entrega.getMes();
+		Integer anio= entrega.getAnio();
 		
-		Optional<Entrega> entregaOpcional = repositorio.findByEmpleadoIdAndMes(idEmpleado,mes);
+		Optional<Entrega> entregaOpcional = repositorio.findByEmpleadoIdAndMesAndAnio(idEmpleado,mes,anio);
         
 		if(entregaOpcional.isPresent()) {
 
@@ -39,9 +40,9 @@ public class EntregaServicioImp implements  EntregaServicio {
 	}
 
 	@Override
-	public Entrega EntregaPorIdEmpleadoPorMes(Long id, Integer mes) {
+	public Entrega EntregaPorIdEmpleadoPorMes(Long id, int mes,int anio) {
 		// TODO Auto-generated method stub
-		Optional<Entrega> entregaOpcional = repositorio.findByEmpleadoIdAndMes(id,mes);
+		Optional<Entrega> entregaOpcional = repositorio.findByEmpleadoIdAndMesAndAnio(id,mes,anio);
         if(entregaOpcional.isPresent()) {
 			
 			return entregaOpcional.get();
@@ -53,9 +54,9 @@ public class EntregaServicioImp implements  EntregaServicio {
 	}
 
 	@Override
-	public List<Entrega> listarEntregasPorMes(int mes) {
+	public List<Entrega> listarEntregasPorMes(int mes, int anio) {
 		// TODO Auto-generated method stub
-		List<Entrega> entrega = repositorio.findByMes(mes);
+		List<Entrega> entrega = repositorio.findByMesAndAnio(mes,anio);
 		
 		return entrega;
 	}

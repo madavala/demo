@@ -42,6 +42,14 @@
 			</select>
     </div>
             <div class="mb-3 mt-3">
+      <label for="mes">Año:</label>
+      <select id="anio"  name="anio" class="selectpicker" th:field="*{anio}">
+				<option th:value="'0'" th:text="'Selecciona un anio'"></option>
+				<option th:value="'2023'" th:text="2023"></option>
+				<option th:value="'2024'" th:text="2024"></option>
+			</select>
+    </div>
+            <div class="mb-3 mt-3">
       <label for="entregas">Entregas:</label>
       <input type="text" class="form-control" id="entregas" placeholder="Cantidad de entregas" name="cantidad" th:field=="*{cantidad}">
     </div>

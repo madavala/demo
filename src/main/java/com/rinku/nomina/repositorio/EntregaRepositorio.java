@@ -13,6 +13,8 @@ import com.rinku.nomina.entidad.Entrega;
 public interface EntregaRepositorio extends JpaRepository<Entrega,Long>, JpaSpecificationExecutor<Entrega>{
 
 	List<Entrega> findByMes(int mes);
+	
+	List<Entrega> findByMesAndAnio(int mes,int anio);
 
 	//Optional<Entrega> findByIdEmpleadoAndMes(Long empleado_id,Integer mes);
 	
@@ -20,6 +22,6 @@ public interface EntregaRepositorio extends JpaRepository<Entrega,Long>, JpaSpec
   //          value = "select * FROM entrega ent, empleado emp WHERE ent.empleado_id=emp.id AND mes=?1 AND ent.empleado_id=?2",
   //          nativeQuery = true
   //      )
-   Optional<Entrega> findByEmpleadoIdAndMes(Long empleado_id,Integer mes);
+   Optional<Entrega> findByEmpleadoIdAndMesAndAnio(Long empleado_id,Integer mes,Integer anio);
 
 }

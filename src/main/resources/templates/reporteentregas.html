@@ -34,6 +34,12 @@
 				<option th:value="'11'" th:text="Noviembre"></option>
 				<option th:value="'12'" th:text="Diciembre"></option>
 			</select>
+      <label for="mes">Año:</label>
+      <select id="anio"  name="anio" class="selectpicker" th:field="*{BuscarEntregas.anio}">
+				<option th:value="'0'" th:text="'Selecciona un anio'"></option>
+				<option th:value="'2023'" th:text="2023"></option>
+				<option th:value="'2024'" th:text="2024"></option>
+			</select>
 				<input type="text" class="form-control" name="buscar" placeholder="no. empleado"
 					aria-label="Recipient's username" aria-describedby="button-addon2">
 				<button class="btn btn-outline-secondary" type="submit" id="button-addon2">Buscar</button>
@@ -70,7 +76,7 @@
 						<td th:text="${entrega.empleado.rol}"></td>
 						<td th:text="${entrega.cantidad}">Entregas</td>
 						
-						<td><a th:href="@{entrega/{id}/{mes}(id=${entrega.empleado.id},mes=${entrega.mes})}" class="btn btn-primary">
+						<td><a th:href="@{entrega/{id}/{mes}/{anio}(id=${entrega.empleado.id},mes=${entrega.mes},anio=${entrega.anio})}" class="btn btn-primary">
 								Editar
 							</a>
 							<a th:href="@{borrarentrega/{id}(id=${entrega.empleado.id})}" class="btn btn-danger">

@@ -16,9 +16,9 @@ public class NominaServicioImp implements NominaServicio {
 	private EntregaRepositorio repositorio;
 
 	@Override
-	public List<Nomina> calculoNomina(int mes) {
+	public List<Nomina> calculoNomina(int mes, int anio) {
 		// TODO Auto-generated method stub
-		List<Entrega> entregas = repositorio.findByMes(mes);
+		List<Entrega> entregas = repositorio.findByMesAndAnio(mes,anio);
 		List<Nomina> nomina = new ArrayList<Nomina>();
 		for (Entrega ent : entregas) {
 

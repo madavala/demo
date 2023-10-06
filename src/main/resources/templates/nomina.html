@@ -32,6 +32,11 @@
 				<option th:value="'11'" th:text="Noviembre"></option>
 				<option th:value="'12'" th:text="Diciembre"></option>
 			</select>
+			      <select id="anio"  name="anio" class="selectpicker" th:field="*{mesnomina.anio}">
+				<option th:value="'0'" th:text="'Selecciona un anio'"></option>
+				<option th:value="'2023'" th:text="2023"></option>
+				<option th:value="'2024'" th:text="2024"></option>
+			</select>
 				<button class="btn btn-outline-secondary" type="submit" id="button-addon2">Buscar</button>
 		</div>
         </form>
