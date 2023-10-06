@@ -9,26 +9,41 @@
 </head>
 <body>
 <div class="bg-light p-5">
-	<form th:action="@{/entrega}" th:object="${empleado}" method="POST">
+	<form th:action="@{/entrega}" th:object="${entrega}" method="POST">
 <div class="mb-3 mt-3">
       <label for="noEmp">Número de empleado:</label>
-      <input type="text" class="form-control" id="noEmp" placeholder="Número de empleado" name="noEmp"  th:field=="*{id}">
+      <input type="hidden" id="id"  name="id"  th:field=="*{id}">
+      <input type="text" class="form-control" id="noEmp" placeholder="Número de empleado" name="noEmp"  th:field=="*{empleado.id}">
     </div>
     <div class="mb-3 mt-3">
       <label for="nomEmp">Nombre:</label>
-      <input type="text" class="form-control" id="nomEmp" placeholder="Nombre de empleado" name="nomEmp"  th:field=="*{nombre}">
+      <input type="text" class="form-control" id="nomEmp" placeholder="Nombre de empleado" name="nomEmp"  th:field=="*{empleado.nombre}">
     </div>
     <div class="mb-3 mt-3">
       <label for="rolEmp">Rol:</label>
-      <input type="text" class="form-control" id="rolEmp" placeholder="Rol de empleado" name="rolEmp" th:field=="*{rol}">
+      <input type="text" class="form-control" id="rolEmp" placeholder="Rol de empleado" name="rolEmp" th:field=="*{empleado.rol}">
     </div>
         <div class="mb-3 mt-3">
       <label for="mes">Mes:</label>
-      <input type="text" class="form-control" id="mes" placeholder="Mes" name="mes">
+      <select id="mes"  name="mes" class="selectpicker" th:field="*{mes}">
+				<option th:value="'0'" th:text="'Selecciona un mes'"></option>
+				<option th:value="'1'" th:text="Enero"></option>
+				<option th:value="'2'" th:text="Febrero"></option>
+				<option th:value="'3'" th:text="Marzo"></option>
+				<option th:value="'4'" th:text="Abril"></option>
+				<option th:value="'5'" th:text="Mayo"></option>
+				<option th:value="'6'" th:text="Junio"></option>
+				<option th:value="'7'" th:text="Julio"></option>
+				<option th:value="'8'" th:text="Agosto"></option>
+				<option th:value="'9'" th:text="Septiembre"></option>
+				<option th:value="'10'" th:text="Octubre"></option>
+				<option th:value="'11'" th:text="Noviembre"></option>
+				<option th:value="'12'" th:text="Diciembre"></option>
+			</select>
     </div>
             <div class="mb-3 mt-3">
       <label for="entregas">Entregas:</label>
-      <input type="text" class="form-control" id="entregas" placeholder="Cantidad de entregas" name="cantidad">
+      <input type="text" class="form-control" id="entregas" placeholder="Cantidad de entregas" name="cantidad" th:field=="*{cantidad}">
     </div>
 	<div class="mb-3 mt-3 text-center">
 			<button class="btn btn-primary">Guardar</button>

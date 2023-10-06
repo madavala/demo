@@ -7,7 +7,9 @@ package com.rinku.nomina.entidad;
 	import jakarta.persistence.GeneratedValue;
 	import jakarta.persistence.GenerationType;
 	import jakarta.persistence.Id;
-	import jakarta.persistence.Table;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 
 	@Entity
 	@Table(name = "Entrega")
@@ -15,10 +17,11 @@ package com.rinku.nomina.entidad;
 
 		@Id
 		@GeneratedValue(strategy = GenerationType.IDENTITY)
-		private long id;
+		private Long id;
 
-		@Column(name = "idEmpleado", nullable = false, length = 50)
-		private Long idEmpleado;
+		@ManyToOne(optional = false)
+	    @JoinColumn(name = "empleado_id")
+		private Empleado empleado;
 		
 		@Column(name = "mes", nullable = false)
 		private Integer mes;
@@ -34,12 +37,12 @@ package com.rinku.nomina.entidad;
 			this.id = id;
 		}
 
-		public Long getIdEmpleado() {
-			return idEmpleado;
+		public Empleado getEmpleado() {
+			return empleado;
 		}
 
-		public void setIdEmpleado(Long idEmpleado) {
-			this.idEmpleado = idEmpleado;
+		public void setEmpleado(Empleado empleado) {
+			this.empleado = empleado;
 		}
 
 		public Integer getMes() {

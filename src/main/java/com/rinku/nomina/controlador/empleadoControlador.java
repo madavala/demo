@@ -1,5 +1,7 @@
 package com.rinku.nomina.controlador;
 
+import java.time.LocalDate;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -7,20 +9,26 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
+import com.rinku.nomina.entidad.BuscarEntregas;
 import com.rinku.nomina.entidad.Empleado;
 import com.rinku.nomina.entidad.Entrega;
 import com.rinku.nomina.servicio.EmpleadoServicio;
 import com.rinku.nomina.servicio.EntregaServicio;
+import com.rinku.nomina.servicio.NominaServicio;
 
 @Controller
 public class empleadoControlador {
 	
 	@Autowired
-	private EmpleadoServicio servicio;
+	private EmpleadoServicio empleadoServicio;
 	
 	@Autowired
-	private EntregaServicio servicio2;
+	private EntregaServicio entregaServicio;
+	
+	@Autowired
+	private NominaServicio nominaServicio;
+	
+	private LocalDate currentdate = LocalDate.now();
 	
 	@GetMapping("/")
 	public String mostrarEmpleados() {
@@ -33,7 +41,8 @@ public class empleadoControlador {
 	@GetMapping("/mostrarempleados")
 	public String mostrarEmpleados(Model modelo) {
 		
-		modelo.addAttribute("empleados",servicio.listarTodosLosEmpleados());
+		modelo.addAttribute("mes",currentdate.getMonthValue());
+		modelo.addAttribute("empleados",empleadoServicio.listarTodosLosEmpleados());
 		
 		return "mostrarempleados";
 	}
@@ -53,7 +62,7 @@ public class empleadoControlador {
 		
 		
 		
-		modelo.addAttribute("empleados",servicio.listarEmpleadosPorId(buscar));
+		modelo.addAttribute("empleados",empleadoServicio.listarEmpleadosPorId(buscar));
 		
 		return "mostrarempleados";
 	}
@@ -61,7 +70,7 @@ public class empleadoControlador {
 	@PostMapping("/empleado")
 	public String guardarEmpleados(Empleado empleado) {
 		
-		servicio.guardarEmpleado(empleado);
+		empleadoServicio.guardarEmpleado(empleado);
 		
 		
 		return "redirect:/mostrarempleados";
@@ -70,32 +79,75 @@ public class empleadoControlador {
 	@GetMapping("/empleado/{id}")
 	public String guardarEmpleados(@PathVariable Long id, Model modelo) {
 		
-		modelo.addAttribute("empleado",servicio.listarEmpleadosPorId(id));
+		modelo.addAttribute("empleado",empleadoServicio.listarEmpleadosPorId(id));
+		
+		
+		return "empleado";
+	}
+	
+	@GetMapping("/borrarempleado/{id}")
+	public String borrarEmpleado(@PathVariable Long id, Model modelo) {
+		
+		empleadoServicio.borrarEmpleadosPorId(id);
 		
 		
 		return "empleado";
 	}
 	
 	@PostMapping("/entrega")
-	public String registrarentrega(@RequestParam Long id,@RequestParam Integer mes, @RequestParam Integer cantidad) {
+	public String registrarentrega(Entrega entrega) {
 		
-		Entrega entrega = new Entrega();
-		entrega.setIdEmpleado(id);
-		entrega.setMes(mes);
-		entrega.setCantidad(cantidad);
-		
-		servicio2.guardarEntrega(entrega);
+		entregaServicio.guardarEntrega(entrega);
 		
 		return "redirect:/mostrarempleados";
 	}
 	
-	@GetMapping("/entrega/{id}")
-	public String entrega(@PathVariable Long id, Model modelo) {
+	@GetMapping("/entrega/{id}/{mes}")
+	public String entrega(@PathVariable Long id,@PathVariable int mes, Model modelo) {
+		
+		Entrega entrega = entregaServicio.EntregaPorIdEmpleadoPorMes(id,mes);
+		
+		if(entrega==null) {
+			
+			entrega =new Entrega();
+			entrega.setId(0);
+			entrega.setCantidad(0);
+			entrega.setMes(mes);
+			entrega.setEmpleado(empleadoServicio.listarEmpleadosPorId(id));
+		}
+		
+		modelo.addAttribute("entrega",entrega);
 		
 		
-		modelo.addAttribute("empleado",servicio.listarEmpleadosPorId(id));
 		return "entrega";
 	}
+	
+	@GetMapping("/nomina/{mes}")
+	public String mostrarNomina(@PathVariable("mes") Integer mes, Model modelo) {		
+		
+		BuscarEntregas mesnomina= new BuscarEntregas();
+		mesnomina.setMes(mes);
+		modelo.addAttribute("mesnomina",mesnomina);
+		
+		modelo.addAttribute("nomina",nominaServicio.calculoNomina(mes));
+		
+		return "nomina";
+	}
 
+	
+	@GetMapping("/reporteentregas")
+	
+	public String reporteentrega(Model modelo) {
+		
+		BuscarEntregas buscarEntregas = new BuscarEntregas();
+		
+		buscarEntregas.setMes(currentdate.getMonthValue());
+		
+		modelo.addAttribute("BuscarEntregas",buscarEntregas);
+		
+		modelo.addAttribute("entregas",entregaServicio.listarEntregasPorMes(10));
 
+		
+		return "reporteentregas";
+	}
 }

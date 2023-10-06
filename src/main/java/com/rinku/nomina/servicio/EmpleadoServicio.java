@@ -12,11 +12,15 @@ public List<Empleado> listarTodosLosEmpleados();
 
 public Empleado guardarEmpleado(Empleado empleado);
 
-Empleado listarEmpleadosPorId(Long id);
+public Empleado listarEmpleadosPorId(Long id);
 
-List<Empleado>  listarEmpleadosPorNombre(String Nombre);
+public List<Empleado>  listarEmpleadosPorNombre(String Nombre);
 
-List<Empleado>  listarEmpleadosPorRol(String Rol);
+public List<Empleado>  listarEmpleadosPorRol(String Rol);
+
+public int borrarEmpleadosPorId(Long id);
+
+public List<Empleado> listarEntregasPorMes(int mes);
 
 
 }
